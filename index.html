@@ -14,43 +14,42 @@
             //--Takes two parameters: playerSelection, computerSelection
             //--Returns a string that declares the winner of the round
             //--Function should be case insensitive
-            function playRound(playerSelection = "rOcK", computerSelection = "RoCk") {
+            function playRound(playerSelection, computerSelection) {
                 playerSelection = playerSelection.toLowerCase();
                 let plsplit = playerSelection.split("");
                 plsplit[0] = plsplit[0].toUpperCase();
-                playerSelection = plsplit.join();
+                playerSelection = plsplit.join("");
 
                 let result;
 
-                switch(true) {
-                    case (playerSelection === computerSelection):
-                        result = "It's a tie!";
-                        break;
-                    
-                    case (playerSelection === 'Rock' && computerSelection === 'Paper'):
-                        result = "You lose. Paper beats Rock!";
-                        break;
-                    
-                    case (playerSelection === 'Paper' && computerSelection === 'Scissors'):
-                        result = "You lose. Scissors beats Paper!";
-                        break;    
-
-                    case (playerSelection === 'Scissors' && computerSelection === 'Rock'):
-                        result = "You lose. Rock beats Scissors!";
-                        break;
-                        
-                    case (computerSelection === 'Rock' && playerSelection === 'Paper'):
-                        result = "You win. Paper beats Rock!";
-                        break; 
-                        
-                    case (computerSelection === 'Paper' && playerSelection === 'Scissors'):
-                        result = "You win. Scissors beats Paper!";
-                        break;
-                        
-                    case (computerSelection === 'Scissors' && playerSelection === 'Rock'):
-                        result = "You win. Rock beats Scissors!";   
+                if (playerSelection === computerSelection) {
+                    result = "It's a tie";
                 }
-
+                else if (playerSelection === 'Rock') {
+                    if (computerSelection === 'Paper') {
+                    result = "You lose. Paper beats Rock!";
+                    }
+                    else if (computerSelection === 'Scissors') {
+                    result = "You win. Rock beats Scissors!";
+                    } 
+                }
+                else if (playerSelection === 'Paper') {
+                    if (computerSelection === 'Scissors') {
+                        result = "You lose. Scissors beats Paper!";
+                    }
+                    else if (computerSelection === 'Rock') {
+                        result = "You win. Paper beats Rock!";
+                    }
+                } 
+                else if (playerSelection === 'Scissors') {
+                    if (computerSelection === 'Rock') {
+                        result = "You lose. Rock beats Scissors!";
+                    }
+                    else if (computerSelection === 'Paper') {
+                        result = "You win. Scissors beats Paper!";
+                    }
+                }
+   
                 return result;
             }
 
@@ -88,6 +87,8 @@
                     console.log("It's a tie!");
                 }
             }
+
+            game();
         </script>
     </body>
 </html>
