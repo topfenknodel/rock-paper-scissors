@@ -2,93 +2,86 @@
 <html>
     <head></head>
     <body>
+        <h1>Throw!</h1>
+        <button id="rock">Rock</button>
+        <button id="paper">Paper</button>
+        <button id="scissors">Scissors</button>
+
         <script>
-            //Create function computerPlay() which randomly returns 'Rock','Paper' or 'Scissors'
+
+            const rock = document.querySelector('#rock');
+            const paper = document.querySelector('#paper');
+            const scissors = document.querySelector('#scissors');
+
+            const div = document.createElement('div');
+            document.body.appendChild(div);
+
+            rock.addEventListener('click', (e) => playRound(e.target.textContent));
+            paper.addEventListener('click', (e) => playRound(e.target.textContent));
+            scissors.addEventListener('click', (e) => playRound(e.target.textContent));
+            
             function computerPlay() {
                 let items = ['Rock', 'Paper', 'Scissors'];
                 let choice = Math.floor(Math.random() * items.length);
                 return items[choice];
             }
 
-            //Create function playRound() that plays a single round of Rock Paper Scissors
-            //--Takes two parameters: playerSelection, computerSelection
-            //--Returns a string that declares the winner of the round
-            //--Function should be case insensitive
-            function playRound(playerSelection, computerSelection) {
-                playerSelection = playerSelection.toLowerCase();
-                let plsplit = playerSelection.split("");
-                plsplit[0] = plsplit[0].toUpperCase();
-                playerSelection = plsplit.join("");
+            let playerScore = 0,
+                computerScore = 0;
 
-                let result;
+            function playRound(playerSelection) {
 
+                let computerSelection = computerPlay();
+
+                const p = document.createElement('p');
+                
                 if (playerSelection === computerSelection) {
-                    result = "It's a tie";
+                    p.textContent = `It's a tie. Player: ${playerScore}  Computer: ${computerScore}`;
                 }
                 else if (playerSelection === 'Rock') {
                     if (computerSelection === 'Paper') {
-                    result = "You lose. Paper beats Rock!";
+                        computerScore += 1;
+                        p.textContent = `You lose. Paper beats Rock! Player: ${playerScore}  Computer: ${computerScore }`;
                     }
                     else if (computerSelection === 'Scissors') {
-                    result = "You win. Rock beats Scissors!";
+                        playerScore += 1;
+                        p.textContent = `You win. Rock beats Scissors! Player: ${playerScore}  Computer: ${computerScore}`;
                     } 
                 }
                 else if (playerSelection === 'Paper') {
                     if (computerSelection === 'Scissors') {
-                        result = "You lose. Scissors beats Paper!";
+                        computerScore += 1;
+                        p.textContent = `You lose. Scissors beats Paper! Player: ${playerScore}  Computer: ${computerScore}`;
                     }
                     else if (computerSelection === 'Rock') {
-                        result = "You win. Paper beats Rock!";
+                        playerScore += 1;
+                        p.textContent = `You win. Paper beats Rock! Player: ${playerScore}  Computer: ${computerScore}`;
+                        
                     }
                 } 
                 else if (playerSelection === 'Scissors') {
                     if (computerSelection === 'Rock') {
-                        result = "You lose. Rock beats Scissors!";
+                        computerScore += 1;
+                        p.textContent = `You lose. Rock beats Scissors! Player: ${playerScore}  Computer: ${computerScore}`;
                     }
                     else if (computerSelection === 'Paper') {
-                        result = "You win. Scissors beats Paper!";
-                    }
-                }
-   
-                return result;
-            }
-
-            //Create function game() that plays a 5 round game, keeps score & reports a winner or loser at the end
-            //--Use playRound() here
-            //--Use console.log() to display the results of each round & winner at the end
-            //--Use prompt() to get input from user
-            function game() {
-                let playerScore = 0,
-                    computerScore = 0;
-
-                for (let i = 0; i < 5; i++) {
-                    let playerSelection = prompt("Throw!");
-                    let computerSelection = computerPlay();
-                    let result = playRound(playerSelection, computerSelection);
-
-                    if (result.search("win") > 0) {
                         playerScore += 1;
+                        p.textContent = `You win. Scissors beats Paper! Player: ${playerScore}  Computer: ${computerScore}`;
                     }
-                    else if (result.search("lose") > 0) {
-                        computerScore += 1;
-                    }
-
-                    console.log(result);
-                    console.log(`Player: ${playerScore} Computer: ${computerScore}`);
                 }
 
-                if (playerScore > computerScore) {
-                    console.log("You won!");
-                }
-                else if (computerScore > playerScore) {
-                    console.log("You lost!");
-                }
-                else {
-                    console.log("It's a tie!");
-                }
-            }
+                div.appendChild(p);
 
-            game();
+                if (playerScore == 5) {
+                    const para = document.createElement('p');
+                    para.textContent = "You won!!";
+                    div.appendChild(para);
+                } else if (computerScore == 5) {
+                    const para = document.createElement('p');
+                    para.textContent = "You lost!!";
+                    div.appendChild(para);
+                }    
+            } 
         </script>
     </body>
 </html>
